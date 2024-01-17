@@ -1,0 +1,180 @@
+
+<!-- <div class="container">
+<form (ngSubmit)="onSubmit()" >
+     #registerForm="ngForm" 
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name" ngModel required>
+    </div><br>
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" ngModel required>
+    </div><br>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" ngModel required>
+    </div><br>
+    <button type="submit" [disabled]="!registerForm.valid" class="btn btn-success">Submit</button>
+</form>
+</div> -->
+<!--<!DOCTYPE html>
+ <html>
+<head>
+  <title>Registration Form</title>
+</head>
+<body>
+  <form (ngSubmit)="onSubmit()" #registerForm>
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username"><br><br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password"><br><br>
+    <label for="email">Email:</label>
+  </form>
+</body>
+</html> -->
+<form (ngSubmit)="onSubmit()">
+    <!-- [formGroup]="employeeForm"  -->
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" id="name" class="form-control" formControlName="Name" required>
+      <div *ngIf="employeeForm.get('Name').invalid && employeeForm.get('Name').touched" class="alert alert-danger">
+        <div *ngIf="employeeForm.get('Name').errors.required">
+          Name is required.
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="dob">Date of Birth</label>
+      <input type="date" id="dob" class="form-control" formControlName="DOB" required>
+      <div *ngIf="employeeForm.get('DOB').invalid && employeeForm.get('DOB').touched" class="alert alert-danger">
+        <div *ngIf="employeeForm.get('DOB').errors.required">
+          Date of Birth is required.
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="gender">Gender</label>
+      <select id="gender" class="form-control" formControlName="Gender" required>
+        <option value="">Select Gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+      </select>
+      <div *ngIf="employeeForm.get('Gender').invalid && employeeForm.get('Gender').touched" class="alert alert-danger">
+        <div *ngIf="employeeForm.get('Gender').errors.required">
+          Gender is required.
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="phone">Phone Number</label>
+      <input type="text" id="phone" class="form-control" formControlName="PhoneNo" required pattern="[0-9+]*" minlength="10">
+      <div *ngIf="employeeForm.get('PhoneNo').invalid && employeeForm.get('PhoneNo').touched" class="alert alert-danger">
+        <div *ngIf="employeeForm.get('PhoneNo').errors.required">
+          Phone Number is required.
+        </div>
+        <div *ngIf="employeeForm.get('PhoneNo').errors.pattern">
+          Phone Number must contain only digits and '+' sign.
+        </div>
+        <div *ngIf="employeeForm.get('PhoneNo').errors.minlength">
+          Phone Number must be at least 10 characters long.
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="address">Address</label>
+      <textarea id="address" class="form-control" formControlName="Address" required></textarea>
+      <div *ngIf="employeeForm.get('Address').invalid && employeeForm.get('Address').touched" class="alert alert-danger">
+        <div *ngIf="employeeForm.get('Address').errors.required">
+          Address is required.
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" class="form-control" formControlName="EmailId" required pattern="^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$">
+      <div *ngIf="employeeForm.get('EmailId').invalid && employeeForm.get('EmailId').touched" class="alert alert-danger">
+        <div *ngIf="employeeForm.get('EmailId').errors.required">
+          Email is required.
+        </div>
+        <div *ngIf="employeeForm.get('EmailId').errors.pattern">
+          Email is not valid.
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="designation">Designation</label>
+      <input type="text" id="designation" class="form-control" formControlName="Designation" required>
+      <div *ngIf="employeeForm.get('Designation').invalid && employeeForm.get('Designation').touched" class="alert alert-danger">
+        <div *ngIf="employeeForm.get('Designation').errors.required">
+          Designation is required.
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="hobbies">Hobbies</label>
+      <div class="form-check" *ngFor="let hobby of Hobbies; let i = index">
+        <input type="checkbox" id="{{hobby.name}}" class="form-check-input" formControlName="Hobbie" [value]="hobby.value">
+        <label for="{{hobby.name}}" class="form-check-label">{{hobby.value}}</label>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="salary">Salary</label>
+      <input type="text" id="salary" class="form-control" formControlName="Salary" required pattern="[0-9+]*">
+      <div *ngIf="employeeForm.get('Salary').invalid && employeeForm.get('Salary').touched" class="alert alert-danger">
+        <div *ngIf="employeeForm.get('Salary').errors.required">
+          Salary is required.
+        </div>
+        <div *ngIf="employeeForm.get('Salary').errors.pattern">
+          Salary must contain only digits and '+' sign.
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="country">Country</label>
+      <select id="country" class="form-control" formControlName="Country" required >
+        <!-- (change)="getCity($event)" -->
+        <option value="">Select Country</option>
+        <option *ngFor="let country of Country" [value]="country.name">{{country.name}}</option>
+      </select>
+      <div *ngIf="employeeForm.get('Country').invalid && employeeForm.get('Country').touched" class="alert alert-danger">
+        <div *ngIf="employeeForm.get('Country').errors.required">
+          Country is required.
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="city">City</label>
+      <select id="city" class="form-control" formControlName="City" required>
+        <option value="">Select City</option>
+        <option *ngFor="let city of City" [value]="city.name">{{city.name}}</option>
+      </select>
+      <div *ngIf="employeeForm.get('City').invalid && employeeForm.get('City').touched" class="alert alert-danger">
+        <div *ngIf="employeeForm.get('City').errors.required">
+          City is required.
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="image">Image</label>
+      <input type="file" id="image" class="form-control" formControlName="Image" required>
+      <div *ngIf="employeeForm.get('Image').invalid && employeeForm.get('Image').touched" class="alert alert-danger">
+        <div *ngIf="employeeForm.get('Image').errors.required">
+          Image is required.
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" class="form-control" formControlName="Password" required minlength="6">
+      <div *ngIf="employeeForm.get('Password').invalid && employeeForm.get('Password').touched" class="alert alert-danger">
+        <div *ngIf="employeeForm.get('Password').errors.required">
+          Password is required.
+        </div>
+        <div *ngIf="employeeForm.get('Password').errors.minlength">
+          Password must be at least 6 characters long.
+        </div>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="!employeeForm.valid">Register</button>
+  </form>
+  

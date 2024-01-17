@@ -1,0 +1,16 @@
+form{
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #ea80ed;
+    border-radius: 5px;
+    align-items: center;
+    justify-content: center;
+    /* -ms-text-kashida-space: 1%; */
+    /* flex-direction: column; */
+}
+.button{
+    color: black;
+}
